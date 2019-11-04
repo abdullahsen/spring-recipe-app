@@ -8,7 +8,6 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String description;
     private Integer prepTime;
     private Integer cookTime;
@@ -19,7 +18,6 @@ public class Recipe {
     //private Difficulty difficulty;
     @Lob
     private Byte[] image;
-
 
     public Long getId() {
         return id;
