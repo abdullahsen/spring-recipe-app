@@ -7,25 +7,38 @@ import java.util.Set;
 @Entity
 public class Recipe {
 
+    //Properties
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String description;
+
     private Integer prepTime;
+
     private Integer cookTime;
+
     private Integer servings;
+
     private String source;
+
     private String url;
+
     @Lob
     private String directions;
+
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
+
     @Lob
     private Byte[] image;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe")
     private Set<Ingredient> ingredients = new HashSet<>();
+
     @OneToOne(cascade = CascadeType.ALL)
     private Note note;
+
     @ManyToMany
     @JoinTable( name = "recipe_category",
                 joinColumns = @JoinColumn(name = "recipe_id"),
@@ -33,6 +46,8 @@ public class Recipe {
     private Set<Category> categories = new HashSet<>();
 
 
+
+    //Getters and setters
     public Long getId() {
         return id;
     }
@@ -40,8 +55,6 @@ public class Recipe {
     public void setId(Long id) {
         this.id = id;
     }
-
-
 
     public String getDescription() {
         return description;
@@ -105,6 +118,7 @@ public class Recipe {
 
     public void setNote(Note note) {
         this.note = note;
+        note.setRecipe(this);
     }
 
     public Difficulty getDifficulty() {
@@ -121,6 +135,12 @@ public class Recipe {
 
     public void setImage(Byte[] image) {
         this.image = image;
+    }
+
+    public Recipe addIngredient(Ingredient ingredient){
+        ingredient.setRecipe(this);
+        this.ingredients.add(ingredient);
+        return this;
     }
 
     public Set<Ingredient> getIngredients() {
