@@ -7,6 +7,7 @@ import com.iafnstudios.springrecipeapp.domain.Recipe;
 import com.iafnstudios.springrecipeapp.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Optional;
@@ -49,6 +50,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
+    @Transactional
     public RecipeCommand saveRecipeCommand(RecipeCommand recipeCommand) {
 
         Recipe detachedRecipe = recipeCommandToRecipe.convert(recipeCommand);
@@ -57,5 +59,16 @@ public class RecipeServiceImpl implements RecipeService {
         log.debug("Saved Recipe Id: "+savedRecipe.getId());
         return recipeToRecipeCommand.convert(savedRecipe);
 
+    }
+
+    @Transactional
+    @Override
+    public RecipeCommand findCommandById(Long id) {
+        return recipeToRecipeCommand.convert(findById(id));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
     }
 }
