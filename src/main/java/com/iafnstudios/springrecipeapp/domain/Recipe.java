@@ -55,8 +55,11 @@ public class Recipe {
     //Modified Getter and Setter Methods
 
     public void setNote(Note note) {
-        this.note = note;
-        note.setRecipe(this);
+        if (note!=null){
+            this.note = note;
+            note.setRecipe(this);
+        }
+
     }
 
     public Recipe addIngredient(Ingredient ingredient){

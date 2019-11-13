@@ -18,6 +18,6 @@ public class Note {
     private Recipe recipe;
 
     @Lob
-    private String recipeNotes;
+    private String recipeNote;
 
 }
