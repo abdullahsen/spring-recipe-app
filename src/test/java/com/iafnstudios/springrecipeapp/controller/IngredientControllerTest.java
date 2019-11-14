@@ -4,6 +4,7 @@ import com.iafnstudios.springrecipeapp.command.IngredientCommand;
 import com.iafnstudios.springrecipeapp.command.RecipeCommand;
 import com.iafnstudios.springrecipeapp.service.IngredientService;
 import com.iafnstudios.springrecipeapp.service.RecipeService;
+import com.iafnstudios.springrecipeapp.service.UnitOfMeasureService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,6 +25,9 @@ public class IngredientControllerTest {
     @Mock
     IngredientService ingredientService;
 
+    @Mock
+    UnitOfMeasureService unitOfMeasureService;
+
     IngredientController ingredientController;
 
     MockMvc mockMvc;
@@ -32,7 +36,7 @@ public class IngredientControllerTest {
     void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        ingredientController = new IngredientController(recipeService, ingredientService);
+        ingredientController = new IngredientController(recipeService, ingredientService, unitOfMeasureService);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ingredientController).build();
 
@@ -68,5 +72,5 @@ public class IngredientControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/ingredient/show"))
                 .andExpect(model().attributeExists("ingredient"));
-    }
+    }           
 }
